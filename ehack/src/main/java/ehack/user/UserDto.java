@@ -3,7 +3,7 @@ package ehack.user;
 import lombok.Data;
 
 @Data
-public class DataDto {
+public class UserDto {
 
 	private int muuid;
 	

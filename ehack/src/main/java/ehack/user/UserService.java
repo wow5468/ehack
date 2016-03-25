@@ -4,11 +4,10 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 @Service
-public class DataService {
+public class UserService {
 
 	@Autowired
-	private DataRepository dataRepository;
-	
+	private UserRepository userRepository;
 	
 	
 }

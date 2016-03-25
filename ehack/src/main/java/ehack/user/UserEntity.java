@@ -12,7 +12,7 @@ import lombok.Data;
 @Data
 @Entity
 @Table(name = "data", catalog = "energy_scheduler")
-public class DataEntity {
+public class UserEntity {
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
