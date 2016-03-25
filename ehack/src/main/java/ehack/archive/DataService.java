@@ -4,9 +4,10 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 @Service
-public class ArchiveService {
+public class DataService {
 
 	@Autowired
-	private ArchiveRepository archiveRepository;
+	private DataRepository dataRepository;
+	
 
 }
