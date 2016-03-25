@@ -91,6 +91,7 @@ public class TransUtil {
 					
 				}
 			}
+			System.out.println(strResponse);
 			request.abort();
 			client.getConnectionManager().shutdown();
 			ObjectMapper mapper = new ObjectMapper();

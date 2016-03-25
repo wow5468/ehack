@@ -56,7 +56,7 @@ public class login {
 		}
 	}
 	
-	@RequestMapping("/callback")
+	@RequestMapping("/login.do")
 	public @ResponseBody String showLoginRslt(HttpSession session
 								, HttpServletResponse response
 								, @RequestParam("code") String strCode
