@@ -17,6 +17,49 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 
 public class TransUtil {
 	
+	
+	public Map<String, Object> getData(HttpSession session, String strUrl) {
+		Map<String,Object> map = new HashMap<String,Object>();
+
+		String deviceListUrl = "https://api.encoredtech.com/1.2/"+strUrl;
+		String strResponse = "";
+		
+		try{
+			HttpClient client = new DefaultHttpClient();
+			HttpGet request = new HttpGet(deviceListUrl);
+			
+			request.addHeader("Authorization", "Bearer "+(String)session.getAttribute("user_token"));
+			
+			HttpResponse response = client.execute(request);
+			org.apache.http.HttpEntity entity = response.getEntity();
+			
+			if(entity != null)
+			{
+				BufferedReader rd = new BufferedReader(new InputStreamReader(
+						response.getEntity().getContent()));
+				
+				String line = "";
+				while((line = rd.readLine()) !=null)
+				{
+					System.out.println(line);
+					strResponse+=line;
+					
+				}
+			}
+			request.abort();
+			client.getConnectionManager().shutdown();
+			ObjectMapper mapper = new ObjectMapper();
+			map = mapper.readValue(strResponse, new TypeReference<Map<String, Object>>(){});
+			
+			System.out.println(map);
+		}
+		catch(Exception e)
+		{
+			e.printStackTrace();
+		}
+		return map;
+	}
+	
 	public Map<String, Object> getApiListData(String usertoken) {
 		
 		String deviceListUrl = "https://api.encoredtech.com/1.2/devices/list";
