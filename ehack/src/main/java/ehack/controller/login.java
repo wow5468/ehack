@@ -106,7 +106,7 @@ public class login {
 				System.out.println(map);
 				
 				if(map.get("error")!=null) {
-					session.setAttribute("user_token", n", (String)map.get("refresh_token"));
+					session.setAttribute("user_token", (String)map.get("refresh_token"));
 
 					//사용자 등록 시작
 					UserEntity ud = new UserEntity();
