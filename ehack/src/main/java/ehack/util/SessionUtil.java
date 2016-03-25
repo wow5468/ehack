@@ -5,7 +5,7 @@ import javax.servlet.http.HttpSession;
 public class SessionUtil {
 	HttpSession session;
 	
-	SessionUtil(HttpSession session) {
+	public SessionUtil(HttpSession session) {
 		this.session = session;
 	}
 	

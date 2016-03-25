@@ -6,5 +6,6 @@ import org.springframework.stereotype.Repository;
 
 @Repository
 public interface DataRepository extends JpaRepository<DataEntity,Integer>{
-
+	public DataEntity findByMuuidAndDuuid(String muuid, String duuid);
+	
 }
