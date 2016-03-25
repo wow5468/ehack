@@ -1,5 +1,6 @@
 package ehack.data;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -9,9 +10,10 @@ import javax.servlet.http.HttpSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
-import org.springframework.web.servlet.ModelAndView;
 
+import ehack.util.JsonUtil;
 import ehack.util.RefineData;
 import ehack.util.TransUtil;
 
@@ -29,25 +31,61 @@ public class DataController {
 	private String deviceListUrl = "https://api.encoredtech.com/1.2/devices/list";
 	private String userToken;
 	
+	
+	//랭크 페이지에 프로덕트 데이타 전체 보내기
+	@RequestMapping(value="/Rank", method = RequestMethod.GET)
+	public @ResponseBody Map<String, Object> getListInformation()
+	{
+		List<DataEntity> dataAll = dataRepository.findAll();
+		return null;
+		
+	
+	}
+	
 	@RequestMapping(value ="/DeviceList " ,method = RequestMethod.GET)
-
-	public ModelAndView getListInformation(HttpSession session) {
-
+	public @ResponseBody Map<String, Object> getListInformation(HttpSession session) {
+		String strMuuid = (String)session.getAttribute("muuid");
 		userToken = (String) session.getAttribute("user_token");
+		
 		Map<String, Object> map = new HashMap<String, Object>();
 		TransUtil tu = new TransUtil();
+		List<Object> mapRslData = null;
 
-		Map<String, Object> mapRsltData = tu.getApiListData(userToken);
+		//from api
+		List<Map<String, Object>> mapRsltData = tu.getApiListData(userToken);
 		
-		List<DataEntity> a = dataRepository.findAll();
+		//from db
+		List<DataEntity> a = dataRepository.findByMuuid(strMuuid);
+		List<RefineData> rdata=new ArrayList<RefineData>();
 		
 		for(int i=0; i<a.size(); i++) {
-			
-		}
-		
-		map = (Map<String, Object>) dataRepository.findAll();
+		  RefineData rd = new RefineData();
 
-		return null;
+		  for(int j=0; j<a.size(); j++)
+		  {
+			//연결 되어 있는 경우
+			if(a.get(i).getDuuid().equals(mapRsltData.get(j).get("uuid")))
+			{
+				rd.setDeviceUUID(a.get(j).getDuuid());
+				rd.setModelNum((String)mapRsltData.get(j).get("model"));
+				rd.setIsConnect("YES");
+				rd.setSerialNum((String)mapRsltData.get(j).get("serialNumber"));
+				break;
+				
+			}//연결 안된 경우
+			else
+			{
+				rd.setDeviceUUID(a.get(i).getDuuid());
+				rd.setIsConnect("NO");
+				rd.setModelNum("NULL");
+				rd.setSerialNum("NULL");
+			}
+				
+		  }
+                                                                                                                                                                 		}
+		map.put("list", rdata);
+
+		return JsonUtil.putSuccessJsonContainer(map);
 	}
 	
 }

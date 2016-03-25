@@ -2,7 +2,19 @@ package ehack.util;
 
 public class RefineData {
 
+	private String deviceUUID;
+	public String getDeviceUUID() {
+		return deviceUUID;
+	}
+	public void setDeviceUUID(String deviceUUID) {
+		this.deviceUUID = deviceUUID;
+	}
 	private String serialNum;
+	private String modelNum;
+	private String isConnect;
+	
+	
+
 	public String getSerialNum() {
 		return serialNum;
 	}
@@ -15,14 +27,13 @@ public class RefineData {
 	public void setModelNum(String modelNum) {
 		this.modelNum = modelNum;
 	}
-	public String getIsConnet() {
-		return isConnet;
+	public String getIsConnect() {
+		return isConnect;
 	}
-	public void setIsConnet(String isConnet) {
-		this.isConnet = isConnet;
+	public void setIsConnect(String isConnect) {
+		this.isConnect = isConnect;
 	}
-	private String modelNum;
-	private String isConnet;
+
 	
 	
 }
