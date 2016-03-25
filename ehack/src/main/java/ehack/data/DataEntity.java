@@ -1,7 +1,5 @@
 package ehack.data;
 
-
-
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -10,8 +8,6 @@ import javax.persistence.Id;
 import javax.persistence.Table;
 
 import lombok.Data;
-
-
 
 @Data
 @Entity
@@ -43,6 +39,12 @@ public class DataEntity {
 	
 	@Column(name = "img")
 	private String img;
+	
+	@Column(name = "oatoken")
+	private String oatoken;
+	
+	@Column(name = "ratoken")
+	private String ratoken;
 
 	
 
