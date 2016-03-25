@@ -20,21 +20,36 @@ import org.springframework.web.bind.annotation.RestController;
 import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
-import ehack.user.UserService;
+import ehack.user.UserDto;
+import ehack.user.UserEntity;
+import ehack.user.UserRepository;
+import ehack.util.JsonUtil;
+
 
 @RestController
 public class login {
 	
 	@Autowired
-	private UserService userService;
+	private UserRepository userRepository;
 	
 	@RequestMapping("/intro.do")
-	public @ResponseBody String checkToken(HttpSession session
+	public @ResponseBody Map<String,Object> checkToken(HttpSession session
 									, @RequestParam("muuid") String strUuid) {
+		Map<String,Object> mapRsltData = new HashMap<String, Object>();
 		
-		return null;
-		
+		UserDto ud = userRepository.findByMuuid(strUuid);
+		session.setAttribute("muuid", strUuid);
+		if(ud==null || ud.getAccesstoken()==null) {
+			mapRsltData.put("rlst","register");
+			return JsonUtil.putFailJsonContainer("9999", "회원 가입이 필요합니다.");
+		} else {
+			session.setAttribute("user_token", ud.getAccesstoken());
+			session.setAttribute("refresh_token", ud.getReaccesstoken());
+			mapRsltData.put("rlst", "success");
+			return JsonUtil.putSuccessJsonContainer(mapRsltData);
+		}
 	}
+	
 	@RequestMapping("/login.do")
 	public @ResponseBody String showLoginRslt(HttpSession session
 								, @RequestParam("code") String strCode
@@ -61,7 +76,7 @@ public class login {
 				HttpResponse responseData = httpclient.execute(httpget);
 				org.apache.http.HttpEntity entity = responseData.getEntity();
 	 
-				// �쓳�떟 寃곌낵
+				// 응답 결과
 				if (entity != null) {
 					BufferedReader rd = new BufferedReader(new InputStreamReader(
 							responseData.getEntity().getContent()));
@@ -81,8 +96,15 @@ public class login {
 				System.out.println(map);
 				
 				session.setAttribute("user_token", (String)map.get("access_token"));
-				session.setAttribute("refresh_token", (String)map.get("access_token"));
+				session.setAttribute("refresh_token", (String)map.get("refresh_token"));
 
+				
+				//사용자 등록 시작
+				UserEntity ud = new UserEntity();
+				ud.setMuuid((String)session.getAttribute("muuid"));
+				ud.setAccesstoken((String)map.get("access_token"));
+				ud.setReaccesstoken((String)map.get("refresh_token"));
+				userRepository.save(ud);
 				
 			} catch(Exception e){
 				e.printStackTrace();
