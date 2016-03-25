@@ -21,7 +21,8 @@ public class TransUtil {
 	
 	public Map<String, Object> getData(HttpSession session, String strUrl) {
 		Map<String,Object> map = new HashMap<String,Object>();
-
+		SessionUtil su = new SessionUtil(session);
+		
 		String deviceListUrl = "https://api.encoredtech.com/1.2/"+strUrl;
 		String strResponse = "";
 		
@@ -29,7 +30,7 @@ public class TransUtil {
 			HttpClient client = new DefaultHttpClient();
 			HttpGet request = new HttpGet(deviceListUrl);
 			
-			request.addHeader("Authorization", "Bearer "+(String)session.getAttribute("user_token"));
+			request.addHeader("Authorization", "Bearer "+su.getAccessToekn());
 			
 			HttpResponse response = client.execute(request);
 			org.apache.http.HttpEntity entity = response.getEntity();

@@ -96,10 +96,8 @@ public class login {
 				System.out.println(map);
 				
 				if(map.get("error")!=null) {
-					session.setAttribute("user_token", (String)map.get("access_token"));
-					session.setAttribute("refresh_token", (String)map.get("refresh_token"));
+					session.setAttribute("user_token", n", (String)map.get("refresh_token"));
 
-					
 					//사용자 등록 시작
 					UserEntity ud = new UserEntity();
 					ud.setMuuid((String)session.getAttribute("muuid"));
@@ -108,12 +106,12 @@ public class login {
 					userRepository.save(ud);
 				}
 				
-				
 			} catch(Exception e){
 				e.printStackTrace();
 			}
 
 			return "success";
-		}
+		}(String)map.get("access_token"));
+					session.setAttribute("refresh_toke
 	}
 }

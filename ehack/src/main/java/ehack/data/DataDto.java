@@ -23,8 +23,9 @@ public class DataDto {
 	
 	private String img;
 	
-	private String oatoken;
 	
-	private String ratoken;
+	private String start;
+	
+	private String end;
 	
 }
