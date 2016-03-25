@@ -75,6 +75,9 @@ dependencies {
 	
 	compile 'org.apache.httpcomponents:httpclient:4.2.6'
 	
+	compile 'com.fasterxml.jackson.core:jackson-databind:2.0.1'
+	
+	
     runtime('com.h2database:h2')
     
     
