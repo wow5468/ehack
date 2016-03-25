@@ -1,15 +1,18 @@
 package ehack.controller;
 
 import java.io.BufferedReader;
+import java.io.IOException;
 import java.io.InputStreamReader;
 import java.util.HashMap;
 import java.util.Map;
 
+import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import org.apache.http.HttpResponse;
 import org.apache.http.client.HttpClient;
 import org.apache.http.client.methods.HttpPost;
+import org.apache.http.entity.StringEntity;
 import org.apache.http.impl.client.DefaultHttpClient;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -37,7 +40,7 @@ public class login {
 									, @RequestParam("muuid") String strUuid) {
 		Map<String,Object> mapRsltData = new HashMap<String, Object>();
 		
-		UserDto ud = userRepository.findByMuuid(strUuid);
+		UserEntity ud = userRepository.findByMuuid(strUuid);
 		session.setAttribute("muuid", strUuid);
 		if(ud==null || ud.getAccesstoken()==null) {
 			mapRsltData.put("rlst","register");
@@ -50,8 +53,9 @@ public class login {
 		}
 	}
 	
-	@RequestMapping("/login.do")
+	@RequestMapping("/callback")
 	public @ResponseBody String showLoginRslt(HttpSession session
+								, HttpServletResponse response
 								, @RequestParam("code") String strCode
 								, @RequestParam(value="error",required=false) String strError) {
 		
@@ -60,18 +64,24 @@ public class login {
 		if(strError!=null) {
 			return "error";
 		} else {
-			
+			Map<String, Object> reqData = new HashMap<String, Object>();
 			HttpClient httpclient = new DefaultHttpClient();
 			try {
 				String strResponse = "";
 				HttpPost httpget = new HttpPost("https://enertalk-auth.encoredtech.com/token");
 
 				//HttpGet httpget = new HttpGet("https://enertalk-auth.encoredtech.com/token");
-				 
-				httpget.addHeader("client_id", "d293NTQ2OEBuYXZlci5jb21fZWhhY2s=");
-				httpget.addHeader("client_secret", "e91cu4xp5oz8bl9bb0ss0af0cu6s23sp97h3yh1");
-				httpget.addHeader("code", strCode);
-				httpget.addHeader("grant_type", "authorization_code");
+				httpget.addHeader("Content-Type", "application/json");
+				reqData.put("client_id", "d293NTQ2OEBuYXZlci5jb21fZWhhY2s=");
+				reqData.put("client_secret", "e91cu4xp5oz8bl9bb0ss0af0cu6s23sp97h3yh1");
+				reqData.put("code", strCode);
+				reqData.put("grant_type", "authorization_code");
+				ObjectMapper mapperObj = new ObjectMapper();
+				String jsonResp = mapperObj.writeValueAsString(reqData);
+				System.out.println(jsonResp);
+				StringEntity params =new StringEntity(jsonResp);
+				
+				httpget.setEntity(params);
 				
 				HttpResponse responseData = httpclient.execute(httpget);
 				org.apache.http.HttpEntity entity = responseData.getEntity();
@@ -103,15 +113,20 @@ public class login {
 					ud.setMuuid((String)session.getAttribute("muuid"));
 					ud.setAccesstoken((String)map.get("access_token"));
 					ud.setReaccesstoken((String)map.get("refresh_token"));
-					userRepository.save(ud);
+					userRepository.saveAndFlush(ud);
 				}
 				
 			} catch(Exception e){
 				e.printStackTrace();
 			}
 
-			return "success";
-		}(String)map.get("access_token"));
-					session.setAttribute("refresh_toke
+			try {
+				response.sendRedirect("http://localhost:8080/content/landing.js");
+			} catch (IOException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+			return "<script>location.href='http://localhost:8080/components/content/landing.js'; </script>";
+		}
 	}
 }
