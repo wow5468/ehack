@@ -9,5 +9,4 @@ public class DataController {
 	@Autowired
 	private DataService dataService;
 	
-	
 }
