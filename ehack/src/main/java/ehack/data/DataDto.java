@@ -22,5 +22,9 @@ public class DataDto {
 	private String pname;
 	
 	private String img;
-
+	
+	private String start;
+	
+	private String end;
+	
 }
