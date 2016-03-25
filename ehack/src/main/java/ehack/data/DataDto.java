@@ -5,9 +5,9 @@ import lombok.Data;
 @Data
 public class DataDto {
 
-	private int muuid;
+	private String muuid;
 	
-	private int duuid;
+	private String duuid;
 	
 	private int pid;
 	

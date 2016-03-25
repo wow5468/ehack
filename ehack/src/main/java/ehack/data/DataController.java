@@ -36,8 +36,11 @@ public class DataController {
 	@RequestMapping(value="/Rank", method = RequestMethod.GET)
 	public @ResponseBody Map<String, Object> getListInformation()
 	{
-		List<DataEntity> dataAll = dataRepository.findAll();
-		return null;
+		Map<String, Object> rankData = new HashMap<String, Object>();
+		List<DataEntity> dataAll = dataRepository.findOrderByRusageDesc();
+		
+		rankData.put("rankdata", dataAll);
+		return JsonUtil.putSuccessJsonContainer(rankData);
 		
 	
 	}
@@ -80,7 +83,7 @@ public class DataController {
 				rd.setModelNum("NULL");
 				rd.setSerialNum("NULL");
 			}
-				
+			rdata.add(rd);	
 		  }
                                                                                                                                                                  		}
 		map.put("list", rdata);

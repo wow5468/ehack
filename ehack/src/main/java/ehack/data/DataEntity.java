@@ -31,9 +31,20 @@ public class DataEntity {
 	@Column(name = "rusage")
 	private int rusage;
 	
+	@Column(name = "usage")
+	private int usage;
+	
 	@Column(name = "pname")
 	private String pname;
 	
 	@Column(name = "img")
 	private String img;
+	
+	@Column(name = "start")
+	private String start;
+	
+	@Column(name = "end")
+	private String end;
+
+
 }
