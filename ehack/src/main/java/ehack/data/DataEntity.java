@@ -9,7 +9,7 @@ import lombok.Data;
 
 @Data
 @Entity
-@Table(name = "data", catalog = "energy_scheduler")
+@Table(name = "data")
 public class DataEntity {
 
 	@Id
@@ -36,14 +36,4 @@ public class DataEntity {
 	
 	@Column(name = "img")
 	private String img;
-	
-	@Column(name = "oatoken")
-	private String oatoken;
-	
-	@Column(name = "ratoken")
-	private String ratoken;
-
-	
-
-
 }

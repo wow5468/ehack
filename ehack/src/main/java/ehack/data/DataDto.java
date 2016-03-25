@@ -22,9 +22,5 @@ public class DataDto {
 	private String pname;
 	
 	private String img;
-	
-	private String oatoken;
-	
-	private String ratoken;
-	
+
 }
