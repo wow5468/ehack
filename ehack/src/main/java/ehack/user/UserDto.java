@@ -1,30 +1,16 @@
-package ehack.user;
+ package ehack.user;
 
 import lombok.Data;
 
 @Data
 public class UserDto {
 
-	private int muuid;
+	private String muuid;
 	
-	private int duuid;
+	private String accesstoken;
 	
-	private int pid;
-	
-	private String status;
-	
-	private int usage;
-	
-	private int count;
-	
-	private int rusage;
-	
-	private String pname;
-	
-	private String img;
-	
-	private String oatoken;
-	
-	private String ratoken;
-	
+	private String reaccesstoken;
+
 }
+
+

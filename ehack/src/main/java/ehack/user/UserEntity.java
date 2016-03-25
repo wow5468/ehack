@@ -11,42 +11,19 @@ import lombok.Data;
 
 @Data
 @Entity
-@Table(name = "data", catalog = "energy_scheduler")
+@Table(name = "userp")
 public class UserEntity {
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	@Column(name = "muuid",  unique = true, nullable = false)
 	private String muuid;
-	
-	@Column(name = "duuid")
-	private String duuid;
-	
-	@Column(name = "pid")
-	private int pid;
-	
-	@Column(name = "status")
-	private String status;
-	
-	@Column(name = "count")
-	private int count;
 
-	@Column(name = "rusage")
-	private int rusage;
+	@Column(name = "accesstoken")
+	private String accesstoken;
 	
-	@Column(name = "pname")
-	private String pname;
-	
-	@Column(name = "img")
-	private String img;
-	
-	@Column(name = "oatoken")
-	private String oatoken;
-	
-	@Column(name = "ratoken")
-	private String ratoken;
-
-	
+	@Column(name = "reaccesstoken")
+	private String reaccesstoken;
 
 
 }

@@ -14,8 +14,7 @@ import org.apache.http.impl.client.DefaultHttpClient;
 public class TransUtil {
 	
 	public Map<String, Object> getApiListData(HttpSession session, String strApiUrl, Map<String, Object> mapReqData) {
-		
-		
+		/*
 		
 		HttpClient client = new DefaultHttpClient();
 		HttpGet request = new HttpGet(deviceListUrl);
@@ -26,7 +25,8 @@ public class TransUtil {
 		
 		BufferedReader rd = new BufferReader(
 				new InputStreamReader(response.getEntity().getContent());
-				
+				*/
+		return null;
 				
 	}
 }

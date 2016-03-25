@@ -12,8 +12,6 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.servlet.ModelAndView;
 
-import ehack.controller.HashMap;
-import ehack.controller.Map;
 import ehack.util.TransUtil;
 import lombok.extern.java.Log;
 
@@ -26,13 +24,13 @@ public class DataController {
 	
 	@RequestMapping(value ="/DeviceList " ,method = RequestMethod.GET)
 	public ModelAndView getListInformation(HttpSession session, String strApiUrl, java.util.Map<String, Object> mapReqData ) {
-
+/*
 		TransUtil tu = new TransUtil();
 		java.util.Map<String, Object> mapRsltData = tu.getApiListData(session, "/devices/list",mapReqData.put("deviceId", "fasdfsd"));
 		
 		
-		
-		return 
+		*/
+		return null;
 	}
 	
 }
