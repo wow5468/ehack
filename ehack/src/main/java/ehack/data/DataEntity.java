@@ -11,11 +11,10 @@ import lombok.Data;
 
 @Data
 @Entity
-@Table(name = "data", catalog = "energy_scheduler")
+@Table(name = "data")
 public class DataEntity {
 
 	@Id
-	@GeneratedValue(strategy = GenerationType.AUTO)
 	@Column(name = "muuid",  unique = true, nullable = false)
 	private String muuid;
 	

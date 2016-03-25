@@ -3,6 +3,7 @@ package ehack.util;
 import java.io.BufferedReader;
 import java.io.InputStreamReader;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 import javax.servlet.http.HttpSession;
@@ -60,17 +61,18 @@ public class TransUtil {
 		return map;
 	}
 	
-	public Map<String, Object> getApiListData(String usertoken) {
+	public List<Map<String, Object>> getApiListData(String usertoken) {
 		
 		String deviceListUrl = "https://api.encoredtech.com/1.2/devices/list";
 		String strResponse = "";
 		Map<String,Object> map = new HashMap<String,Object>();
+		List<Map<String, Object>> listData = null;
 		
 		try{
 			HttpClient client = new DefaultHttpClient();
 			HttpGet request = new HttpGet(deviceListUrl);
 			
-			request.addHeader("Authorization",usertoken);
+			request.addHeader("Authorization","Bearer "+usertoken);
 			
 			HttpResponse response = client.execute(request);
 			org.apache.http.HttpEntity entity = response.getEntity();
@@ -91,7 +93,7 @@ public class TransUtil {
 			request.abort();
 			client.getConnectionManager().shutdown();
 			ObjectMapper mapper = new ObjectMapper();
-			map = mapper.readValue(strResponse, new TypeReference<Map<String, Object>>(){});
+			listData = mapper.readValue(strResponse, new TypeReference<List<HashMap<String,Object>>>(){});
 			
 			System.out.println(map);
 		}
@@ -99,7 +101,7 @@ public class TransUtil {
 		{
 			
 		}
-		return map;
+		return listData;
 				
 	}
 }
