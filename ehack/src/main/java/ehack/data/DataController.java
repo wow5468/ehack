@@ -22,7 +22,7 @@ public class DataController {
 	private DataService dataService;
 	@Autowired
 	private DataRepository dataRepository;
-	@Autowired
+	
 	private RefineData refineData;
 
 	
