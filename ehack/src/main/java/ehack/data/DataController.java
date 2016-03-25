@@ -12,7 +12,6 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.servlet.ModelAndView;
 
-
 import ehack.util.RefineData;
 import ehack.util.TransUtil;
 
@@ -39,6 +38,12 @@ public class DataController {
 		TransUtil tu = new TransUtil();
 
 		Map<String, Object> mapRsltData = tu.getApiListData(userToken);
+		
+		List<DataEntity> a = dataRepository.findAll();
+		
+		for(int i=0; i<a.size(); i++) {
+			
+		}
 		
 		map = (Map<String, Object>) dataRepository.findAll();
 
