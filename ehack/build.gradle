@@ -49,7 +49,7 @@ dependencies {
 	compile 'org.hibernate:hibernate-validator:5.2.1.Final'
 
 	// db
-	compile 'mysql:mysql-connector-java:5.1.6'
+	compile 'org.postgresql:postgresql:9.4-1201-jdbc41'
 	compile 'commons-dbcp:commons-dbcp:1.2.2'
 
 	// query dsl
@@ -71,7 +71,6 @@ dependencies {
 
 	// guava
 	compile 'com.google.guava:guava:19.0'
-	
 	
 	
 	
