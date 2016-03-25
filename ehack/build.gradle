@@ -73,7 +73,7 @@ dependencies {
 	compile 'com.google.guava:guava:19.0'
 	
 	
-	
+	compile 'org.apache.httpcomponents:httpclient:4.2.6'
 	
     runtime('com.h2database:h2')
     
