@@ -10,6 +10,7 @@ import javax.servlet.http.HttpSession;
 import org.apache.http.HttpResponse;
 import org.apache.http.client.HttpClient;
 import org.apache.http.client.methods.HttpPost;
+import org.apache.http.entity.StringEntity;
 import org.apache.http.impl.client.DefaultHttpClient;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -60,18 +61,24 @@ public class login {
 		if(strError!=null) {
 			return "error";
 		} else {
-			
+			Map<String, Object> reqData = new HashMap<String, Object>();
 			HttpClient httpclient = new DefaultHttpClient();
 			try {
 				String strResponse = "";
 				HttpPost httpget = new HttpPost("https://enertalk-auth.encoredtech.com/token");
 
 				//HttpGet httpget = new HttpGet("https://enertalk-auth.encoredtech.com/token");
-				 
-				httpget.addHeader("client_id", "d293NTQ2OEBuYXZlci5jb21fZWhhY2s=");
-				httpget.addHeader("client_secret", "e91cu4xp5oz8bl9bb0ss0af0cu6s23sp97h3yh1");
-				httpget.addHeader("code", strCode);
-				httpget.addHeader("grant_type", "authorization_code");
+				httpget.addHeader("Content-Type", "application/json");
+				reqData.put("client_id", "d293NTQ2OEBuYXZlci5jb21fZWhhY2s=");
+				reqData.put("client_secret", "e91cu4xp5oz8bl9bb0ss0af0cu6s23sp97h3yh1");
+				reqData.put("code", strCode);
+				reqData.put("grant_type", "authorization_code");
+				ObjectMapper mapperObj = new ObjectMapper();
+				String jsonResp = mapperObj.writeValueAsString(reqData);
+				System.out.println(jsonResp);
+				StringEntity params =new StringEntity(jsonResp);
+				
+				httpget.setEntity(params);
 				
 				HttpResponse responseData = httpclient.execute(httpget);
 				org.apache.http.HttpEntity entity = responseData.getEntity();
