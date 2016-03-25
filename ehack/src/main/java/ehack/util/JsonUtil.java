@@ -6,20 +6,20 @@ import java.util.Map;
 
 public class JsonUtil {
 	/**
-	 * µ¥ÀÌÅÍ °á°ú¸¦ JSON ¼º°ø ±Ô°İ¿¡ ¸Â°Ô ¸¸µé¾îÁÖ´Â ÇÔ¼ö
-	 * @param mapSource °á°ú µ¥ÀÌÅÍ
-	 * @return JSON±Ô°İ¿¡ ÀÇÇØ ¸¸µé¾îÁø °á°ú µ¥ÀÌÅÍ
+	 * ë°ì´í„° ê²°ê³¼ë¥¼ JSON ì„±ê³µ ê·œê²©ì— ë§ê²Œ ë§Œë“¤ì–´ì£¼ëŠ” í•¨ìˆ˜
+	 * @param mapSource ê²°ê³¼ ë°ì´í„°
+	 * @return JSONê·œê²©ì— ì˜í•´ ë§Œë“¤ì–´ì§„ ê²°ê³¼ ë°ì´í„°
 	 */
 	public static Map<String, Object> putSuccessJsonContainer(Map<String, Object> mapSource) {
 		return makeJsonContainer("success", mapSource);
 	}
 	
 	/**
-	 * °á°ú°¡ ½ÇÆĞÀÏ °æ¿ì
-	 * @param errorCd ¿À·ùÄÚµå(Å¬·¡½º¸í+EER+¼ıÀÚ)
-	 * @param errorMsg ¿À·ù¸Ş½ÃÁö(»ç¿ëÀÚ°Ô¿¡°Ô º¸¿©ÁÙ ¸Ş½ÃÁö)
-	 * @param currentTime ¿À·ù ¸Ş½ÃÁö ¹ß»ı ½Ã°£
-	 * @return MapÇü½ÄÀÇ ¿À·ù °á°ú
+	 * ê²°ê³¼ê°€ ì‹¤íŒ¨ì¼ ê²½ìš°
+	 * @param errorCd ì˜¤ë¥˜ì½”ë“œ(í´ë˜ìŠ¤ëª…+EER+ìˆ«ì)
+	 * @param errorMsg ì˜¤ë¥˜ë©”ì‹œì§€(ì‚¬ìš©ìê²Œì—ê²Œ ë³´ì—¬ì¤„ ë©”ì‹œì§€)
+	 * @param currentTime ì˜¤ë¥˜ ë©”ì‹œì§€ ë°œìƒ ì‹œê°„
+	 * @return Mapí˜•ì‹ì˜ ì˜¤ë¥˜ ê²°ê³¼
 	 */
 	public static Map<String, Object> putFailJsonContainer(String errorCd, int errorCode, String errorMsg, long currentTime) {
 		Map<String, Object> mapResData = new HashMap<String, Object>();
@@ -32,9 +32,9 @@ public class JsonUtil {
 	}
 	
 	/**
-	 * ¾×¼ÇÄÚµå¸¦ ÀûÁö ¾ÊÀº ÇÔ¼ö (actcd´Â 9999±âº»)
-	 * @param errorCd ¿À·ùÄÚµå 
-	 * @param errorMsg ¿À·ù¸Ş½ÃÁö
+	 * ì•¡ì…˜ì½”ë“œë¥¼ ì ì§€ ì•Šì€ í•¨ìˆ˜ (actcdëŠ” 9999ê¸°ë³¸)
+	 * @param errorCd ì˜¤ë¥˜ì½”ë“œ 
+	 * @param errorMsg ì˜¤ë¥˜ë©”ì‹œì§€
 	 * @return
 	 */
 	public static Map<String, Object> putFailJsonContainer(String errorCd, String errorMsg){
@@ -42,10 +42,10 @@ public class JsonUtil {
 	}
 	
 	/**
-	 * JSON Ç¥ÁØ ÄÁÅ×ÀÌ³Ê¿¡ ³Ö¾îÁØ´Ù. 
-	 * @param result °á°ú ¸Ş½ÃÁö
-	 * @param mapSource ¿ø¼Ò½º
-	 * @return ¸¸µé¾îÁø MapÇü½Ä
+	 * JSON í‘œì¤€ ì»¨í…Œì´ë„ˆì— ë„£ì–´ì¤€ë‹¤. 
+	 * @param result ê²°ê³¼ ë©”ì‹œì§€
+	 * @param mapSource ì›ì†ŒìŠ¤
+	 * @return ë§Œë“¤ì–´ì§„ Mapí˜•ì‹
 	 */
 	private static Map<String, Object> makeJsonContainer(String result, Map<String, Object> mapSource) {
 		@SuppressWarnings("rawtypes")
