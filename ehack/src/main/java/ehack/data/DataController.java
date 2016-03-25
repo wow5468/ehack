@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.servlet.ModelAndView;
 
+
 import ehack.util.RefineData;
 import ehack.util.TransUtil;
 
@@ -30,26 +31,18 @@ public class DataController {
 	private String userToken;
 	
 	@RequestMapping(value ="/DeviceList " ,method = RequestMethod.GET)
+
 	public ModelAndView getListInformation(HttpSession session) {
 
 		userToken = (String) session.getAttribute("user_token");
 		Map<String, Object> map = new HashMap<String, Object>();
-		
-		//plugin api로 등록된 기기들 가져온다.
 		TransUtil tu = new TransUtil();
+
 		Map<String, Object> mapRsltData = tu.getApiListData(userToken);
 		
-		//DB에 저장되어 있는 기기들 가져온다.
-		map= (Map<String, Object>) dataRepository.findAll();
-		
-		//등록된 기기와 DB에 저장된 기기를 비교 
-	    
-	 
-		
-		//비교값을 리턴
-		
-		
-		return 
+		map = (Map<String, Object>) dataRepository.findAll();
+
+		return null;
 	}
 	
 }

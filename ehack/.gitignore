@@ -3,3 +3,4 @@ src/main/resources/application.yml
 *.class
 /build/
 /bin/
+/.gradle/

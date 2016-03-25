@@ -31,7 +31,6 @@ public class login {
 	@RequestMapping("/intro.do")
 	public @ResponseBody String checkToken(HttpSession session
 									, @RequestParam("muuid") String strUuid) {
-		UserDto
 		
 		return null;
 		
@@ -62,7 +61,7 @@ public class login {
 				HttpResponse responseData = httpclient.execute(httpget);
 				org.apache.http.HttpEntity entity = responseData.getEntity();
 	 
-				// 응답 결과
+				// �쓳�떟 寃곌낵
 				if (entity != null) {
 					BufferedReader rd = new BufferedReader(new InputStreamReader(
 							responseData.getEntity().getContent()));
