@@ -8,6 +8,7 @@ import java.util.Map;
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -46,7 +47,7 @@ public class DataController {
 	
 	//연결된 플러그 정보(시리얼, 모델 넘버)를 받고 나머지 기록하고 DB에 저장
 	@RequestMapping(value="/insert", method = RequestMethod.POST)
-	public void insert(@RequestBody DataEntity dd)
+	public void insert(@ModelAttribute DataEntity dd)
 	{
 		dd.setCount(0);
 		dd.setUsage(0);
