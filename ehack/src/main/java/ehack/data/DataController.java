@@ -49,14 +49,12 @@ public class DataController {
 		
 		Map<String, Object> map = new HashMap<String, Object>();
 		TransUtil tu = new TransUtil();
-		List<Object> mapRslData = null;
 
 		//from api
 		List<Map<String, Object>> mapRsltData = tu.getApiListData(userToken);
 		
 		//from db
 		List<DataEntity> a = dataRepository.findByMuuid(strMuuid);
-		List<RefineData> rdata=new ArrayList<RefineData>();
 		System.out.println("mapRsltData::"+mapRsltData);
 		
 
