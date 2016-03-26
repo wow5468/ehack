@@ -11,6 +11,6 @@ public interface DataRepository extends JpaRepository<DataEntity,Integer>{
 	
 	public List<DataEntity> findByMuuid(String muuid);
 	public DataEntity findByMuuidAndDuuid(String muuid, String duuid);
-	public List<DataEntity> findOrderByRusageDesc();
+	public List<DataEntity> OrderByRusageDesc();
 	
 }

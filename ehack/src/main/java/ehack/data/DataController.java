@@ -38,7 +38,7 @@ public class DataController {
 	public @ResponseBody Map<String, Object> getListInformation()
 	{
 		Map<String, Object> rankData = new HashMap<String, Object>();
-		List<DataEntity> dataAll = dataRepository.findOrderByRusageDesc();
+		List<DataEntity> dataAll = dataRepository.OrderByRusageDesc();
 		
 		rankData.put("rankdata", dataAll);
 		return JsonUtil.putSuccessJsonContainer(rankData);
@@ -80,27 +80,9 @@ public class DataController {
 			//연결 되어 있는 경우
 			if(a.get(j).getDuuid().equals(mapRsltData.get(i).get("uuid")))
 			{
-<<<<<<< HEAD
-				rd.setDeviceUUID(a.get(j).getDuuid());
-				rd.setModelNum((String)mapRsltData.get(j).get("model"));
-				rd.setIsConnect("YES");
-				rd.setSerialNum((String)mapRsltData.get(j).get("serialNumber"));
-				break;
-			}//연결 안된 경우
-			else
-			{
-				rd.setDeviceUUID(a.get(i).getDuuid());
-				rd.setIsConnect("NO");
-				rd.setModelNum("NULL");
-				rd.setSerialNum("NULL");
-=======
 				isConnected = true;
->>>>>>> branch 'master' of https://github.com/wow5468/ehack
 			}
-<<<<<<< HEAD
-			rdata.add(rd);	
-=======
->>>>>>> branch 'master' of https://github.com/wow5468/ehack
+
 		  }
 			mapRsltData.get(i).put("isConnected", isConnected);
 		}
