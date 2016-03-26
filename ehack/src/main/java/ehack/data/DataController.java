@@ -42,7 +42,7 @@ public class DataController {
 	
 	}
 	
-	@RequestMapping(value ="/DeviceList " ,method = RequestMethod.GET)
+	@RequestMapping(value ="/DeviceList" ,method = RequestMethod.GET)
 	public @ResponseBody Map<String, Object> getListInformation(HttpSession session) {
 		String strMuuid = (String)session.getAttribute("muuid");
 		userToken = (String) session.getAttribute("user_token");
@@ -57,35 +57,26 @@ public class DataController {
 		//from db
 		List<DataEntity> a = dataRepository.findByMuuid(strMuuid);
 		List<RefineData> rdata=new ArrayList<RefineData>();
+		System.out.println("mapRsltData::"+mapRsltData);
 		
-		for(int i=0; i<a.size(); i++) {
-		  RefineData rd = new RefineData();
 
+		for(int i=0; i<mapRsltData.size(); i++) {
+			boolean isConnected = false;
 		  for(int j=0; j<a.size(); j++)
 		  {
 			//연결 되어 있는 경우
-			if(a.get(i).getDuuid().equals(mapRsltData.get(j).get("uuid")))
+			if(a.get(j).getDuuid().equals(mapRsltData.get(i).get("uuid")))
 			{
-				rd.setDeviceUUID(a.get(j).getDuuid());
-				rd.setModelNum((String)mapRsltData.get(j).get("model"));
-				rd.setIsConnect("YES");
-				rd.setSerialNum((String)mapRsltData.get(j).get("serialNumber"));
-				break;
-				
-			}//연결 안된 경우
-			else
-			{
-				rd.setDeviceUUID(a.get(i).getDuuid());
-				rd.setIsConnect("NO");
-				rd.setModelNum("NULL");
-				rd.setSerialNum("NULL");
+				isConnected = true;
 			}
-				
 		  }
-                                                                                                                                                                 		}
-		map.put("list", rdata);
+			mapRsltData.get(i).put("isConnected", isConnected);
+		}
+		  map.put("list", mapRsltData);
 
+		  
 		return JsonUtil.putSuccessJsonContainer(map);
 	}
-	
+		
+
 }
