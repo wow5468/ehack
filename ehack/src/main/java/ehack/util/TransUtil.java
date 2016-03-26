@@ -91,13 +91,13 @@ public class TransUtil {
 					
 				}
 			}
-			System.out.println(strResponse);
+			System.out.println("strResponse::"+strResponse);
 			request.abort();
 			client.getConnectionManager().shutdown();
 			ObjectMapper mapper = new ObjectMapper();
-			listData = mapper.readValue(strResponse, new TypeReference<List<HashMap<String,Object>>>(){});
+			listData = mapper.readValue(strResponse, new TypeReference<List<Object>>(){});
 			
-			System.out.println(map);
+			System.out.println("listData::"+listData);
 		}
 		catch(Exception e)
 		{
