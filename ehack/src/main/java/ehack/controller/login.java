@@ -46,14 +46,17 @@ public class login {
 			mapRsltData.put("rlst","register");
 			return JsonUtil.putFailJsonContainer("9999", "회원 가입이 필요합니다.");
 		} else {
-			session.setAttribute("user_token", ud.getAccesstoken());
-			session.setAttribute("refresh_token", ud.getReaccesstoken());
+			//session.setAttribute("user_token", ud.getAccesstoken());
+			//session.setAttribute("refresh_token", ud.getReaccesstoken());
+			session.setAttribute("muuid", "test");
+			session.setAttribute("user_token", "f09877b6bc334dba84534afbf422682c42a018b3e28abbb5e3e880565475163410debc103bbf6ff314441d3fcb1626decd12a89db662fbbea56cbe91f7dd2ed0");
+			session.setAttribute("refresh_token", "b3c7e24463040c0ab5685c68c420c78e8f161c1e5fb271cf03bbfc12e785609359dd58e9296ebafecb34047e89b02a140b43f319d3dabd388806d3b803e4feec");
 			mapRsltData.put("rlst", "success");
 			return JsonUtil.putSuccessJsonContainer(mapRsltData);
 		}
 	}
 	
-	@RequestMapping("/callback")
+	@RequestMapping("/login.do")
 	public @ResponseBody String showLoginRslt(HttpSession session
 								, HttpServletResponse response
 								, @RequestParam("code") String strCode
@@ -106,8 +109,10 @@ public class login {
 				System.out.println(map);
 				
 				if(map.get("error")!=null) {
-					session.setAttribute("user_token", (String)map.get("refresh_token"));
+					session.setAttribute("user_token", (String)map.get("access_token"));
+					session.setAttribute("refresh_token", (String)map.get("refresh_token"));
 
+					
 					//사용자 등록 시작
 					UserEntity ud = new UserEntity();
 					ud.setMuuid((String)session.getAttribute("muuid"));
@@ -116,17 +121,12 @@ public class login {
 					userRepository.saveAndFlush(ud);
 				}
 				
+				
 			} catch(Exception e){
 				e.printStackTrace();
 			}
 
-			try {
-				response.sendRedirect("http://localhost:8080/content/landing.js");
-			} catch (IOException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			}
-			return "<script>location.href='http://localhost:8080/components/content/landing.js'; </script>";
+			return "success";
 		}
 	}
 }
